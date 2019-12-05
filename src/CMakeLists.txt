@@ -43,6 +43,7 @@ set(src
   flb_sha512.c
   flb_plugin.c
   flb_gzip.c
+  flb_signv4.c
   )
 
 if (CMAKE_SYSTEM_NAME MATCHES "Windows")
