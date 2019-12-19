@@ -1,0 +1,12 @@
+[Unit]
+Description=TD Agent Bit
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/sfapm/td-agent-bit/opt/td-agent-bit/bin/td-agent-bit -c /opt/sfapm/td-agent-bit/etc/td-agent-bit/td-agent-bit.conf
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
