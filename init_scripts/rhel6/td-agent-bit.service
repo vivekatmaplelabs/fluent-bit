@@ -1,0 +1,44 @@
+#!/bin/bash
+#/etc/rc.d/init.d/fluentbit
+
+# Source function library.
+. /etc/init.d/functions
+
+
+start() {
+        echo -n "Starting td-agent-bit... "
+        nohup /opt/sfapm/td-agent-bit/opt/td-agent-bit/bin/td-agent-bit -c /opt/sfapm/td-agent-bit/etc/td-agent-bit/td-agent-bit.conf &
+        touch /var/lock/subsys/fluentbit
+        return 0
+}
+
+stop() {
+        echo -n "Shutting down td-agent-bit... "
+        pid=$(ps -eaf | grep td-agent-bit | head -n 1 | awk '{print $2}')
+        kill -9 $pid
+        rm -f /var/lock/subsys/fluentbit
+        return 0
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    reload)
+        ;;
+    *)
+        echo "Usage: td-agent-bit {start|stop|status|reload|restart}"
+ exit 1
+        ;;
+esac
+exit $?
+
